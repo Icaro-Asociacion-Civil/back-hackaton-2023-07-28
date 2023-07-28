@@ -2,16 +2,17 @@
 
 import express from "express"
 import morgan from "morgan"
-import serviceMock from "./serviceMock"
+import { ordersRoutes, productsRoutes } from "./routes"
 
 const app = express()
-const PORT = 41003
+const PORT = 8080
 
 app.disable("etag")
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan("dev"))
 
-app.use("/fake-service", serviceMock)
+app.use("/api/products", productsRoutes)
+app.use("/api/orders", ordersRoutes)
 
 app.listen(PORT, () => console.log("Listening in port", PORT))
